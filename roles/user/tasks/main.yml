@@ -1,0 +1,7 @@
+---
+# tasks file for roles/user
+- name: Prepare users
+  include_tasks: prepare_user.yml
+  loop: "{{ user_new_users }}"
+  loop_control:
+    loop_var: user

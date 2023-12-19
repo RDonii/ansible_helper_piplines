@@ -1,0 +1,8 @@
+---
+# defaults file for roles/user
+user_new_users:
+  - username: user
+    # OPTIONALS
+    is_sudoer: yes
+    password: "{{ secret | password_hash('sha512') }}"
+    # copy_ssh_public_key: verylongsshpublickeyverylongsshpublickeyverylongsshpublickeyverylongsshpublickeyverylongsshpublickey

@@ -1,0 +1,22 @@
+---
+- name: Create user {{ user.username }}
+  user:
+    name: "{{ user.username }}"
+    password: "{{ user.password | default(omit) }}"
+    shell: /bin/bash
+    state: present
+
+- name: Add {{ user.username }} user to sudo group if is_sudoer is true
+  when: user.is_sudoer | default(false)
+  become: yes
+  user:
+    name: "{{ user.username }}"
+    append: yes
+    groups: "sudo"
+
+- name: Copy SSH key to authorized_keys of {{ user.username }} user if copy_ssh_public_key is set
+  when: user.copy_ssh_public_key | default(false)
+  authorized_key:
+    user: "{{ user.username }}"
+    key: "{{ user.copy_ssh_public_key }}"
+    state: present

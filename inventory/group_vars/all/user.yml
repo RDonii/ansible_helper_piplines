@@ -1,0 +1,8 @@
+user_new_users:
+  - username: test
+    # OPTIONALS
+    is_sudoer: yes
+    password: "{{ 'tt0890tt' | password_hash('sha512') }}"
+    copy_ssh_public_key: "{{ lookup('file', '/home/doni/Desktop/code/laravel_fresh_deploy_ansible/keys/test_rsa.pub') }}"
+
+  - username: test2
