@@ -8,8 +8,8 @@
 
 - name: Add {{ user.username }} user to sudo group if is_sudoer is true
   when: user.is_sudoer | default(false)
-  become: yes
-  user:
+  become: true
+  user:     # WARNING: creates the user if not exists
     name: "{{ user.username }}"
     append: yes
     groups: "sudo"
