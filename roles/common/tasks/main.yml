@@ -1,0 +1,13 @@
+---
+# tasks file for roles/common
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: Choose list of tools based on OS family
+  include_tasks:
+    file: get_common_tools.yml
+
+- name: Install tools
+  apt:
+    pkg: "{{ _common_tools }}"

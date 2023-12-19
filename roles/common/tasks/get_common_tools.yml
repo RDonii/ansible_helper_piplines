@@ -1,0 +1,9 @@
+- name: Define list of tools for Debian linux
+  when: ansible_facts["os_family"] == "Debian"
+  set_fact:
+    _common_tools: "{{ common_debian_packages }}"
+
+- name: Define list of tools for Arch linux
+  when: ansible_facts["os_family"] == "Arch"
+  set_fact:
+    _common_tools: "{{ common_arch_packages }}"

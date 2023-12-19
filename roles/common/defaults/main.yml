@@ -1,0 +1,11 @@
+---
+# defaults file for common
+common_debian_packages:
+  - neovim
+  - git
+  - net-tools
+
+common_arch_packages:
+  - neovim
+  - git
+  - inetutils
