@@ -1,0 +1,8 @@
+---
+- name: Common started tasks
+  hosts: it_office
+  become: yes
+  gather_facts: yes
+  roles:
+    - role: common
+    - role: user

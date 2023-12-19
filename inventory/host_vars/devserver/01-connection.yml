@@ -1,0 +1,8 @@
+ansible_host: 172.122.162.93
+ansible_user: sudoeruser
+ansible_port: 22
+ansible_python_interpreter: /usr/bin/python3
+# ansible_ssh_private_key: keys/id_rsa
+ansible_connection: ssh
+ansible_sudo_pass: secret
+ansible_password: secret

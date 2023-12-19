@@ -1,0 +1,8 @@
+ansible_host: 192.168.13.130
+ansible_user: doni
+ansible_port: 22
+ansible_python_interpreter: /usr/bin/python3
+# ansible_ssh_private_key_file: keys/id_rsa
+ansible_connection: ssh
+ansible_sudo_pass: somepassword
+ansible_password: somepassword
