@@ -1,0 +1,21 @@
+---
+# tasks file for roles/ssh
+- name: Check dangerous configurations
+  pause:
+    prompt: |
+      "WARNIGN: You turning of both password and ssh-key authentication.
+      Do you want to continue? [yes/No]""
+  register: __ssh_confirm_turn_off_auths
+  when: ssh_override_ssh_config and ssh_password_auth == 'no' and ssh_pubkey_auth == 'no'
+
+- name: Check confirmation
+  set_fact:
+    _ssh_confirm_turn_off_auths: "{{
+        (__ssh_confirm_turn_off_auths.skipped is defined and __ssh_confirm_turn_off_auths.skipped) or
+        (__ssh_confirm_turn_off_auths.user_input is defined and __ssh_confirm_turn_off_auths.user_input | lower == 'yes')
+      }}"
+
+- name: Update sshd_config
+  include_tasks:
+    file: replace_sshd_config.yml
+  when: ssh_override_ssh_config and _ssh_confirm_turn_off_auths

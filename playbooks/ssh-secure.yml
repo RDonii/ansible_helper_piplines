@@ -1,0 +1,7 @@
+---
+- name: Configure SSH settings
+  hosts: it_office
+  become: true
+  gather_facts: false
+  roles:
+    - role: ssh

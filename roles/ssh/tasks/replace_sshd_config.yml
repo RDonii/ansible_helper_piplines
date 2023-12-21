@@ -1,0 +1,24 @@
+---
+# replaces /etc/ssh/sshd_config with sshd_config.j2 template
+- name: Warn about overriding sshd_config password authentication.
+  ansible.builtin.pause:
+    prompt: "WARNING: This task will turn off ssh password authentication. |
+            Make sure you have configured ssh-key to access to the server in the future. | 
+            Do you want to continue? [yes/No]"
+  register: __ssh_confirm_override
+  when: |
+    ssh_password_auth == "no" and
+    (ansible_password is defined or ansible_ssh_pass is defined or ansible_ssh_password is defined)
+
+- name: Copy sshd_config template
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0644'
+  when: |
+    (__ssh_confirm_override.user_input is defined and __ssh_confirm_override.user_input | lower == 'yes') or
+    (__ssh_confirm_override.skipped is defined and __ssh_confirm_override.skipped )
+  notify:
+    - Restart SSH Service
