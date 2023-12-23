@@ -5,6 +5,7 @@
     password: "{{ user.password | default(omit) }}"
     shell: /bin/bash
     state: present
+    update_password: on_create
 
 - name: Add {{ user.username }} user to sudo group if is_sudoer is true
   when: user.is_sudoer | default(false)
