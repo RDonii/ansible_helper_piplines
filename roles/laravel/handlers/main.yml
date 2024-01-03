@@ -1,0 +1,12 @@
+---
+# handlers file for roles/laravel
+
+- name: Restart PHP-FPM {{ hostvars[inventory_hostname].laravel_php_version }} service
+  service:
+    name: "php{{ hostvars[inventory_hostname].laravel_php_version }}-fpm"
+    state: restarted
+
+- name: Restart Nginx service
+  service:
+    name: nginx
+    state: restarted

@@ -1,0 +1,17 @@
+[{{ laravel_project_name }}}]
+user = {{ laravel_project_user }}
+group = {{ laravel_project_group }}
+
+listen = {{ laravel_socket }}
+listen.owner = {{ laravel_socket_owner }}
+listen.group = {{ laravel_socket_group }}
+listen.mode = {{ laravel_socket_mode }}
+
+pm = {{ laravel_pm }}
+pm.max_children = {{ laravel_pm_max_children }}
+pm.start_servers = {{ laravel_pm_start_servers }}
+pm.min_spare_servers = {{ laravel_pm_min_spare_servers }}
+pm.max_spare_servers = {{ laravel_pm_max_spare_servers }}
+pm.max_requests = {{ laravel_pm_max_requests }}
+request_terminate_timeout = {{ laravel_request_terminate_timeout }}
+rlimit_files = {{ laravel_rlimit_files }}

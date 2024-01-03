@@ -1,0 +1,29 @@
+---
+# defaults file for roles/laravel
+laravel_php_version: "8.1"
+laravel_project_name: "{{ notdefined | mandatory }}"
+laravel_project_user: "{{ notdefined | mandatory }}"
+laravel_project_path: "{{ notdefined | mandatory }}"
+laravel_project_repo: "{{ notdefined | mandatory }}"
+
+# nginx configuration
+laravel_nginx_port: 80
+laravel_nginx_servernames: "{{ ansible_host }}"
+laravel_nginx_prefix: "api"
+laravel_nginx_public_folder: "{{ laravel_project_path }}/public"
+
+
+# php-fpm configuration
+laravel_project_group: "{{ laravel_project_user }}"
+laravel_socket: "/run/php/php{{ laravel_php_version }}-{{ laravel_project_name }}.sock"
+laravel_socket_owner: "www-data"
+laravel_socket_group: "www-data"
+laravel_socket_mode: 0660
+laravel_pm: "dynamic"
+laravel_pm_max_children: 2000
+laravel_pm_start_servers: 20
+laravel_pm_min_spare_servers: 20
+laravel_pm_max_spare_servers: 50
+laravel_pm_max_requests: 1024
+laravel_request_terminate_timeout: "60s"
+laravel_rlimit_files: 8192

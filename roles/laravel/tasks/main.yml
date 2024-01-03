@@ -1,0 +1,31 @@
+---
+# tasks file for roles/laravel
+- name: Clone the repository
+  git:
+    repo: "{{ laravel_project_repo }}"
+    dest: "{{ laravel_project_path }}"
+    clone: yes
+  
+- name: Install Composer
+  include_tasks:
+    file: install_composer.yml
+
+- name: Copy php-fpm configuration template for the project {{ laravel_project_name }}
+  ansible.builtin.template:
+    src: php-fpm-project.j2
+    dest: "/etc/php/{{ laravel_php_version }}/fpm/pool.d/{{ laravel_project_name }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart PHP-FPM {{ hostvars[inventory_hostname].laravel_php_version }} service
+
+- name: Copy nginx configuration template for the project {{ laravel_project_name }}
+  ansible.builtin.template:
+    src: nginx-project.j2
+    dest: "/etc/nginx/conf.d/{{ laravel_project_name }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart Nginx service
