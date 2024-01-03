@@ -1,7 +1,7 @@
 ---
 # defaults file for roles/user
 user_new_users:
-  - username: {{ notdefined | mandatory }}
+  - username: "{{ notdefined | mandatory }}"
     # OPTIONALS
     is_sudoer: yes
     password: "{{ secret | password_hash('sha512') }}"
