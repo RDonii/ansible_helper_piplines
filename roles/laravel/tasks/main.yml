@@ -12,6 +12,7 @@
     clone: yes
     accept_hostkey: yes
     key_file: "{{ laravel_github_ssh_key.dest }}"
+  become: false
   
 - name: Install Composer
   include_tasks:
