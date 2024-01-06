@@ -1,10 +1,17 @@
 ---
 # tasks file for roles/laravel
+- name: Copy private ssh keys to access github
+  include_tasks:
+    file: copy_id.yml
+
 - name: Clone the repository
   git:
     repo: "{{ laravel_project_repo }}"
     dest: "{{ laravel_project_path }}"
+    version: "{{ laravel_project_version }}"
     clone: yes
+    accept_hostkey: yes
+    key_file: "{{ laravel_github_ssh_key.dest }}"
   
 - name: Install Composer
   include_tasks:
@@ -18,7 +25,7 @@
     group: root
     mode: '0644'
   notify:
-    - Restart PHP-FPM {{ hostvars[inventory_hostname].laravel_php_version }} service
+    - Restart PHP-FPM service
 
 - name: Copy nginx configuration template for the project {{ laravel_project_name }}
   ansible.builtin.template:

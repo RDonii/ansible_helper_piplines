@@ -1,0 +1,21 @@
+---
+- name: Copy private SSH key file
+  copy:
+    src: "{{ laravel_github_ssh_key.src }}"
+    dest: "{{ laravel_github_ssh_key.dest }}"
+    owner: "{{ laravel_project_user }}"
+    group: "{{ laravel_project_user }}"
+    mode: '0600'
+
+- name: Configure GitHub in SSH config
+  blockinfile:
+    path: "/home/{{ laravel_project_user }}/.ssh/config"
+    block: |
+      Host github.com
+        IdentityFile {{ laravel_github_ssh_key.dest }}
+        User git
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (GitHub)"
+    create: yes
+    owner: "{{ laravel_project_user }}"
+    group: "{{ laravel_project_user }}"
+    mode: '0600'

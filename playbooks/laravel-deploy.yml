@@ -1,0 +1,9 @@
+---
+- name: Common started tasks
+  hosts: test_servers
+  become: yes
+  gather_facts: yes
+  roles:
+    - role: common
+    # - role: user
+    - role: laravel

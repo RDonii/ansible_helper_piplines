@@ -1,0 +1,11 @@
+---
+- name: Copy SSH key to remote servers
+  hosts: jenkins_clients
+  gather_facts: false
+
+  tasks:
+    - name: Copy SSH key to authorized_keys file
+      authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ lookup('file', '/home/doni/Desktop/projects/ishonch/devops_ansible_piplines/keys/jenkins_rsa.pub') }}"

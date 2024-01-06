@@ -14,7 +14,7 @@ server {
         try_files $uri $uri/ @backend;
 
         location ~ \.php$ {
-                fastcgi_pass unix:/var/{{ laravel_socket }};
+                fastcgi_pass unix:/var{{ laravel_socket }};
                 fastcgi_index index.php;
                 fastcgi_read_timeout 240;
                 proxy_buffers 4 256k;

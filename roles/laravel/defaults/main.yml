@@ -5,6 +5,7 @@ laravel_project_name: "{{ notdefined | mandatory }}"
 laravel_project_user: "{{ notdefined | mandatory }}"
 laravel_project_path: "{{ notdefined | mandatory }}"
 laravel_project_repo: "{{ notdefined | mandatory }}"
+laravel_github_ssh_keys: "{{ notdefined | mandatory }}" # list items with keys: src, dest
 
 # nginx configuration
 laravel_nginx_port: 80
